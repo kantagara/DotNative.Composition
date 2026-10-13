@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DotNativePluginKind>Managed</DotNativePluginKind>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(NETCoreSdkVersion)' != '' and $([MSBuild]::VersionLessThan('$(NETCoreSdkVersion)', '10.0.100'))">net9.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAotCompatible>true</IsAotCompatible>
+    <Version>0.1.0-preview.1</Version>
+    <Authors>DotNative</Authors>
+    <Description>Optional managed reactive stores and explicit session composition for DotNative.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <DotNativeSourceRoot Condition="'$(DotNativeSourceRoot)' == ''">../dotNative</DotNativeSourceRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="tests/**/*.cs" />
+    <ProjectReference Include="$(DotNativeSourceRoot)/src/DotNative/DotNative.csproj" Condition="Exists('$(DotNativeSourceRoot)/src/DotNative/DotNative.csproj')" />
+    <PackageReference Include="DotNative" Version="0.1.0-preview.10" Condition="!Exists('$(DotNativeSourceRoot)/src/DotNative/DotNative.csproj')" />
+    <None Remove="README.md;LICENSE" />
+    <None Include="README.md" Pack="true" PackagePath="/" />
+    <None Include="LICENSE" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  <Import Project="build/PluginAuthoring.props" />
+  <Import Project="build/PluginAuthoring.targets" />
+</Project>

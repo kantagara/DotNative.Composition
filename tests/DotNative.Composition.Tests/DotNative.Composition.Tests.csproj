@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(NETCoreSdkVersion)' != '' and $([MSBuild]::VersionLessThan('$(NETCoreSdkVersion)', '10.0.100'))">net9.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../DotNative.Composition.csproj" />
+  </ItemGroup>
+</Project>
